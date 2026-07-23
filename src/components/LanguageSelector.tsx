@@ -1,22 +1,26 @@
 'use client';
 
-import { useRouter } from 'next-intl';
-import Link from 'next/link';
+import { Link, usePathname } from '@/i18n/routing';
+
+const locales = ['en', 'es'] as const;
+
+type Locale = (typeof locales)[number];
 
 const LanguageSelector = () => {
-  const router = useRouter();
-  const { locales, locale } = router;
+  const pathname = usePathname();
+  const [, currentLocale = 'en', ...pathSegments] = pathname.split('/');
+  const basePath = `/${pathSegments.join('/')}` || '/';
 
   return (
-    <div>
-      {locales?.map((currentLocale) => (
+    <div className="flex items-center gap-2">
+      {locales.map((locale) => (
         <Link
-          key={currentLocale}
-          href={router.asPath}
-          locale={currentLocale}
-          className={locale === currentLocale ? 'active' : ''}
+          key={locale}
+          href={basePath}
+          locale={locale}
+          className={currentLocale === locale ? 'active' : ''}
         >
-          {currentLocale.toUpperCase()}
+          {locale.toUpperCase()}
         </Link>
       ))}
     </div>
