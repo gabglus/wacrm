@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.active {
+  font-weight: bold;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

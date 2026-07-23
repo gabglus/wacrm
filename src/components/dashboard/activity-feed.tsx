@@ -1,7 +1,6 @@
 "use client"
 
-import Link from 'next/link'
-import { useState } from 'react'
+import { Link } from '@/i18n/routing';import { useState } from 'react'
 import {
   MessageSquare,
   UserPlus,
