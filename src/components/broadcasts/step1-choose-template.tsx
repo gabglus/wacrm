@@ -27,29 +27,29 @@ export function Step1ChooseTemplate({ selectedTemplate, onSelect, onNext, onBack
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchTemplates() {
-      try {
-        const supabase = createClient();
-        // Only APPROVED templates can be sent via Meta — anything else
-        // would 400 at broadcast time. Hide them rather than letting
-        // the user pick a template that will fail.
-        const { data, error: fetchError } = await supabase
-          .from('message_templates')
-          .select('*')
-          .eq('status', 'APPROVED')
-          .order('created_at', { ascending: false });
+      async function fetchTemplates() {
+        try {
+          const supabase = createClient();
+          // Only APPROVED templates can be sent via Meta — anything else
+          // would 400 at broadcast time. Hide them rather than letting
+          // the user pick a template that will fail.
+          const { data, error: fetchError } = await supabase
+            .from('message_templates')
+            .select('*')
+            .eq('status', 'APPROVED')
+            .order('created_at', { ascending: false });
 
-        if (fetchError) throw fetchError;
-        setTemplates(data ?? []);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : t('chooseTemplate.errorLoad'));
-      } finally {
-        setLoading(false);
+          if (fetchError) throw fetchError;
+          setTemplates(data ?? []);
+        } catch (err) {
+          setError(err instanceof Error ? err.message : t('chooseTemplate.errorLoad'));
+        } finally {
+          setLoading(false);
+        }
       }
-    }
 
-    fetchTemplates();
-  }, []);
+      fetchTemplates();
+    }, [t]);
 
   if (loading) {
     return (

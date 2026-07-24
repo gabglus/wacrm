@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
     return response
   }
 
-  let supabaseResponse = response
+  const supabaseResponse = response
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

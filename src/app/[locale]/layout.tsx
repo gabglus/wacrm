@@ -1,12 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { Inter } from "next/font/google";
 import Script from "next/script";
 import "../globals.css";
 import { ThemeProvider } from "@/hooks/use-theme";
 import { ThemedToaster } from "@/components/themed-toaster";
-import LanguageSelector from "@/components/LanguageSelector";
 import {
   DEFAULT_MODE,
   DEFAULT_THEME,
@@ -18,10 +16,6 @@ import {
 import { routing } from "@/i18n/routing";
 import { notFound } from 'next/navigation';
 
-const inter = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: {
@@ -101,7 +95,7 @@ export default async function RootLayout({
       lang={locale}
       data-theme={DEFAULT_THEME}
       data-mode={DEFAULT_MODE}
-      className={`${inter.variable} h-full antialiased`}
+      className="h-full antialiased"
       // The `theme-boot` script below rewrites `data-theme` and
       // `data-mode` on <html> from localStorage before React hydrates,
       // so for any non-default choice the client DOM intentionally
